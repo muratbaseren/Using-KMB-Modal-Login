@@ -11,7 +11,7 @@ The nuget package will install below files:
 * Models/ModalLoginJsonResult.cs
 * Models/SyaUser.cs
 * Images/preferences-system-login.png
-* Controllers/ModalLoginController
+* **Controllers/ModalLoginController.cs**
 * **Views/Shared/_ModalLoginPartial.cshtml**
 * **Views/Shared/_ModalLoginMenuItemPartial.cshtml**
 
