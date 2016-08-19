@@ -6,10 +6,10 @@ You can use Visual Studio and download modal login automatically. For download, 
 *[KMB Modal Login](https://www.nuget.org/packages/KMBModalLogin/)*
 
 The nuget package will install below files:
-Content/modal-login.css
-Scripts/modal-login.js
-Models/ModalLoginJsonResult.cs
-Models/SyaUser.cs
+.*Content/modal-login.css
+.*Scripts/modal-login.js
+.*Models/ModalLoginJsonResult.cs
+.*Models/SyaUser.cs
 İmages/preferences-system-login.png
 Controllers/ModalLoginController
 *Views/Shared/_ModalLoginPartial.cshtml*
