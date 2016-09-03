@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UsingModalLogin.Models
 {
-    public partial class ModalLoginJsonResult
+    public partial class KmbLoginJsonResult
     {
         public bool HasError { get; set; }
         public string Message { get; set; }

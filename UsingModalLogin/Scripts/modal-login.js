@@ -2,9 +2,13 @@
    #
    #   Project       : Modal Login with jQuery Effects
    #   Author        : Rodrigo Amarante (rodrigockamarante)
-   #   Version       : 1.0
+   #   Orginal Ver.  : 1.0
    #   Created       : 07/29/2015
    #   Last Change   : 08/04/2015
+   #
+   #   Updated		 : 02.09.2016
+   #   Author 		 : K. Murat Baseren (www.muratbaseren.com.tr)
+   #   Current Ver.  : 2.0
    #
    ##################################################################### */
 
@@ -17,6 +21,73 @@ $(function () {
     var $modalAnimateTime = 300;
     var $msgAnimateTime = 150;
     var $msgShowTime = 2000;
+
+    $('#login-modal').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget) // Button or link that triggered the modal
+        var mode = button.data('openmode') // Extract info from data-* attributes
+
+        if (mode == "undefined" || mode == null)
+            return;
+
+        if (mode == "login") {
+            // mode value is "login" then; and last panel is "register" or "lost" then, show to "login" with animate.
+            if ($formRegister.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formRegister, $formLogin);
+                }, 500);
+            }
+
+            if ($formLost.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formLost, $formLogin);
+                }, 500);
+            }
+
+        }
+        else if (mode == "register") {
+            // mode value is "register" then; and last panel is "login" or "lost" then, show to "register" with animate.
+            if ($formLogin.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formLogin, $formRegister);
+                }, 500);
+            }
+
+            if ($formLost.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formLost, $formRegister);
+                }, 500);
+            }
+        }
+        else if (mode == "lost") {
+            // mode value is "lost" then; and last panel is "register" or "login" then, show to "lost" with animate.
+            if ($formRegister.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formRegister, $formLost);
+                }, 500);
+            }
+
+            if ($formLogin.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formLogin, $formLost);
+                }, 500);
+            }
+        }
+        else {
+            // mode has not value then; and last panel is "register" or "lost" then, show to "login" with animate.
+            if ($formRegister.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formRegister, $formLogin);
+                }, 500);
+            }
+
+            if ($formLost.css("display") != "none") {
+                setTimeout(function () {
+                    modalAnimate($formLost, $formLogin);
+                }, 500);
+            }
+        }
+    })
 
     $("#login-modal form").submit(function () {
         switch (this.id) {
@@ -31,7 +102,7 @@ $(function () {
 
                 $.ajax({
                     method: "post",
-                    url: "/ModalLogin/SignIn",
+                    url: "/KmbLogin/SignIn",
                     data: { login_username: $lg_username, login_password: $lg_password, login_rememberme: $lg_rememberme }
                 }).done(function (res) {
                     if (res.HasError) {
@@ -47,7 +118,7 @@ $(function () {
 
                         setTimeout(function () {
                             location.reload();
-                        }, 2000);
+                        }, 1500);
                     }
                 });
 
@@ -58,7 +129,7 @@ $(function () {
 
                 $.ajax({
                     method: "post",
-                    url: "/ModalLogin/LostPassword",
+                    url: "/KmbLogin/LostPassword",
                     data: { lost_email: $ls_email }
                 }).done(function (res) {
                     if (res.HasError) {
@@ -80,7 +151,7 @@ $(function () {
 
                 $.ajax({
                     method: "post",
-                    url: "/ModalLogin/SignUp",
+                    url: "/KmbLogin/SignUp",
                     data: { register_username: $rg_username, register_email: $rg_email, register_password: $rg_password }
                 }).done(function (res) {
                     if (res.HasError) {
