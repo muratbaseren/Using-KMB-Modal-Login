@@ -1,0 +1,41 @@
+@using UsingModalLogin.Models
+@model KmbUser
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_KmbLayout.cshtml";
+}
+
+<h2>User Profile</h2>
+<hr />
+
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/images/user_boy.png" class="img-circle">
+        </div>
+
+        <div class="col-md-8">
+            <h3>@(Model.Name + " " + Model.Surname)</h3>
+            <br />
+            <h6><b>Username: </b>@Model.Username</h6>
+            <h6><b>Email: </b>@Model.Email</h6>
+            <br />
+            <h6><a href="#">More... </a></h6>
+        </div>
+
+        <div class="col-md-2 text-right">
+            <div class="btn-group">
+                <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
+                    Action
+                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><span class="icon-wrench"></span> Modify</a></li>
+                    <li><a href="#"><span class="icon-trash"></span> Delete</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
