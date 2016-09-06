@@ -5,28 +5,18 @@ You can use Visual Studio and download modal login automatically. For download, 
 
 > **PM > Install-Package [KMBModalLogin](https://www.nuget.org/packages/KMBModalLogin/)**
 
-The nuget package will install below files:
-* Content/modal-login.css
-* Scripts/modal-login.js
-* Models/ModalLoginJsonResult.cs
-* Models/SyaUser.cs
-* Images/preferences-system-login.png
-* **Controllers/ModalLoginController.cs**
-* **Views/Shared/_ModalLoginPartial.cshtml**
-* **Views/Shared/_ModalLoginMenuItemPartial.cshtml**
-
 ## Sample Layout
 
 You can use quickly **_ModalLoginMenuItemPartial.cshtml** partial view that shows **SignIn** and **SignUp** links.
-Layout has two partials.
+KmbLayout that in shared folder, has two partials.
 
 ![Layout has two partials](http://goo.gl/uqy1Es)
 
-> **You can sure using JQuery 2.2.4 and Bootstrap**  
+> **You can sure using JQuery(>=2.2.4) and Bootstrap(>=3.3.0)**  
 
-![Adding Scripts to Head Block](http://goo.gl/rxro8n)
+![Adding Scripts to Head Block](http://goo.gl/YCZso0)
 
-![KMBModalLogin Sample Layout Screen](https://goo.gl/pK73hF)
+![KMBModalLogin Sample Layout Screen](http://goo.gl/35GOMW)
 
 ## Login Screen
 
