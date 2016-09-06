@@ -140,6 +140,7 @@
     <Content Include="Views\Shared\_KmbLayout.cshtml" />
     <Content Include="Views\KmbLogin\UserProfile.cshtml" />
     <Content Include="Views\KmbLogin\Index.cshtml" />
+    <Content Include="Views\KmbLogin\EditProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

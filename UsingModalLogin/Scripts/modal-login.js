@@ -100,6 +100,8 @@ $(function () {
                     $lg_rememberme = true;
                 }
 
+                $("#login_submit_btn").attr("disabled", "disabled");
+
                 $.ajax({
                     method: "post",
                     url: "/KmbLogin/SignIn",
@@ -110,11 +112,11 @@ $(function () {
 
                         $('#login_username').val("");
                         $('#login_password').val("");
+
+                        $("#login_submit_btn").removeAttr("disabled");
                     }
                     else {
                         msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", res.Message);
-
-                        $("#login_submit_btn").attr("disabled", "disabled");
 
                         setTimeout(function () {
                             location.reload();
@@ -149,6 +151,8 @@ $(function () {
                 var $rg_email = $('#register_email').val();
                 var $rg_password = $('#register_password').val();
 
+                $("#register_submit_btn").attr("disabled", "disabled");
+
                 $.ajax({
                     method: "post",
                     url: "/KmbLogin/SignUp",
@@ -157,14 +161,14 @@ $(function () {
                     if (res.HasError) {
                         msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", res.Message);
 
+                        $("#register_submit_btn").removeAttr("disabled");
+
                         $('#register_username').val("");
                         $('#register_email').val("");
                         $('#register_password').val("");
                     }
                     else {
                         msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", res.Message);
-
-                        $("#register_submit_btn").attr("disabled", "disabled");
 
                         setTimeout(function () {
                             location.reload();

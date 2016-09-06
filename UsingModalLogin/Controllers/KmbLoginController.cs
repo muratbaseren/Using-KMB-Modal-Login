@@ -37,7 +37,6 @@ namespace UsingModalLogin.Controllers
             {
                 // AsNoTracking : This should be used for example if you want to load entity only to read data and you don't plan to modify them.
 
-                // TODO : KMB Modal Login - SignIn
                 KmbUser user = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Username == login_username && x.Password == login_password);
 
                 if (user != null)
@@ -45,7 +44,7 @@ namespace UsingModalLogin.Controllers
                     result.HasError = false;
                     result.Message = "Login successfully.";
 
-                    user.Password = string.Empty;
+                    user.Password = string.Empty;   // Session is not include pass for security.
 
                     // Set login to session
                     Session["login"] = user;
@@ -76,7 +75,6 @@ namespace UsingModalLogin.Controllers
             }
             else
             {
-                // TODO : KMB Modal Login - SignUp
                 KmbUser user = db.KmbUsers.FirstOrDefault(x => x.Username == register_username || x.Email == register_email);
 
                 if (user != null)
@@ -103,7 +101,7 @@ namespace UsingModalLogin.Controllers
                         // Detached : This should be used for example if you want to load entity only to read data and you don't plan to modify them.
                         db.Entry(user).State = System.Data.Entity.EntityState.Detached;
 
-                        user.Password = string.Empty;
+                        user.Password = string.Empty;   // Session is not include pass for security.
 
                         // Set login to session for auto login from register.
                         Session["login"] = user;
@@ -166,18 +164,122 @@ namespace UsingModalLogin.Controllers
 
         public ActionResult UserProfile()
         {
-            // TODO : KMB Modal Login - UserProfile
+            if (Session["login"] == null)
+                return RedirectToAction("Index");
+
             KmbUser user = Session["login"] as KmbUser;
 
             return View(user);
         }
 
 
+        public ActionResult EditProfile()
+        {
+            if (Session["login"] == null)
+                return RedirectToAction("Index");
+
+            KmbUser user = Session["login"] as KmbUser;
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(KmbUser user, HttpPostedFileBase ProfileImage)
+        {
+            KmbUser usr = db.KmbUsers.Find(user.Id);
+
+            if (user.Username != usr.Username)
+            {
+                // if username is using then not acceptable.
+                KmbUser chk = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Username == user.Username);
+
+                if (chk != null)
+                {
+                    ModelState.AddModelError("Username", "User name is not valid.");
+                    ModelState.Remove("Password");
+
+                    return View(user);
+                }
+            }
+
+            if (user.Email != usr.Email)
+            {
+                // if email is using then not acceptable.
+                KmbUser chk = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Email == user.Email);
+
+                if (chk != null)
+                {
+                    ModelState.AddModelError("Email", "E-Mail address is not valid.");
+                    ModelState.Remove("Password");
+
+                    return View(user);
+                }
+            }
+
+            if (usr != null)
+            {
+                if (ProfileImage != null &&
+                    (ProfileImage.ContentType == "image/jpeg" ||
+                    ProfileImage.ContentType == "image/jpg"))
+                {
+                    ProfileImage.SaveAs(Server.MapPath("~/images/user_" + user.Id + ".jpeg"));
+                    usr.ProfileImageFileName = "user_" + user.Id + ".jpeg";
+                }
+
+                usr.Username = user.Username;
+                usr.Name = user.Name;
+                usr.Surname = user.Surname;
+                usr.Password = user.Password ?? usr.Password;
+                usr.Email = user.Email;
+
+                if (db.SaveChanges() > 0)
+                {
+                    usr.Password = string.Empty;    // Session is not include pass for security.
+                    Session["login"] = usr;
+
+                    return RedirectToAction("UserProfile");
+                }
+            }
+
+            ModelState.Remove("Password");
+
+            return View(user);
+        }
+
+
+        public ActionResult DeleteProfile()
+        {
+            if (Session["login"] == null)
+                return RedirectToAction("Index");
+
+            KmbUser user = Session["login"] as KmbUser;
+
+            db.KmbUsers.Remove(db.KmbUsers.Find(user.Id));
+
+            if (db.SaveChanges() > 0)
+            {
+                Session.Clear();
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("UserProfile");
+        }
+
+
 #if DEBUG
         [HttpPost]
-        public ActionResult Index(string servername, string userid, string password, string iswinauthentication)
+        public ActionResult Index(string servername, string databasename, string userid, string password, string iswinauthentication)
         {
-            string connStr = "Server=" + servername + ";Database=KmbModalLoginTestDB;";
+            if (string.IsNullOrEmpty(servername) || string.IsNullOrEmpty(databasename) ||
+                string.IsNullOrWhiteSpace(servername) || string.IsNullOrWhiteSpace(databasename))
+            {
+                ViewBag.ResultStyle = "danger";
+                ViewBag.Result = "Error : Server name or database name must not be empty.";
+
+                return View();
+            }
+
+            string connStr = "Server=" + servername + ";Database=" + databasename + "; ";
 
             if (iswinauthentication != null && iswinauthentication == "on")
             {
@@ -195,12 +297,12 @@ namespace UsingModalLogin.Controllers
                 conf.Save();
 
                 ViewBag.ResultStyle = "success";
-                ViewBag.Result = "ConnectionString(KmbContext) saved to web.config with successfully..";
+                ViewBag.Result = "ConnectionString(KmbContext) saved to web.config with successfully..<br><b>First request can be a few slowly. Becase CodeFirst create database in your SQL Server. After Log-in you :) if you can write correct username and pass.(sample username is below)</b>";
             }
             catch (Exception ex)
             {
                 ViewBag.ResultStyle = "danger";
-                ViewBag.Result = "Error : " + ex.Message;
+                ViewBag.Result = "Error : <b>" + ex.Message + "</b>";
             }
 
             return View();
