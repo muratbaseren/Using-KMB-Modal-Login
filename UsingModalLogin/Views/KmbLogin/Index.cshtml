@@ -3,19 +3,55 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_KmbLayout.cshtml";
 }
-
 <style>
     body {
         padding-top: 50px;
     }
+
+    input[type=text],
+    input[type=password] {
+        width: 280px;
+    }
+
+    .form-horizontal .control-label {
+        padding-top: 10px;
+        text-align: left;
+    }
 </style>
+
+<script>
+
+    $(function () {
+
+        $("#iswinauthentication").change(function () {
+
+            if ($(this).is(":checked"))
+            {
+                $("#userid").removeAttr("required");
+                $("#password").removeAttr("required");
+
+                $("#userid").attr("disabled", "disabled");
+                $("#password").attr("disabled", "disabled");
+            }
+            else
+            {
+                $("#userid").attr("required", "required");
+                $("#password").attr("required", "required");
+
+                $("#userid").removeAttr("disabled");
+                $("#password").removeAttr("disabled");
+            }
+
+        });
+
+    });
+
+</script>
 
 <h2>Configurations</h2>
 <hr />
-
 <div class="row">
     <div class="col-md-12">
-
         <h3>Test User Information</h3>
         <p>
             You can use this sample account. This account will be automatically to insert SQL database with EF CodeFirst if you use Entity Framework.<br />
@@ -28,9 +64,8 @@
             <b>Password :</b> 123<br />
             <b>E-Mail   :</b> kadirmuratbaseren@gmail.com
         </p>
-
         <hr />
-        
+
         <h3>Entity Framework &amp; Web.Config Configuration</h3>
         <p>
             You can install Entity Framework from nuget package manager for sample Index page.<br />
@@ -38,7 +73,6 @@
             <b class="alert alert-danger">You don't forget! For EF run, it required connection string in web.config file. You can add below line to connectionStrings section in web.config</b>
             <br /><br />
         </p>
-
         <p>
             <pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
             <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> With Windows Authentication </span><span style='color:#696969; '>--></span>
@@ -62,6 +96,59 @@
 <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
 </pre>
         </p>
+        <hr />
 
+        <h3>Set ConnectionString in Web.Config</h3>
+        <p>
+            You can use below form and setting connectionstring in web.config automatically.
+        </p>
+
+        @using (Html.BeginForm())
+            {
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Server Name</label>
+                    <div class="col-md-9">
+                        <input type="text" name="servername" id="servername" class="form-control" placeholder="server name" required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Is Windows Authentication</label>
+                    <div class="col-md-9">
+                        <input type="checkbox" name="iswinauthentication" id="iswinauthentication" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">User Id</label>
+                    <div class="col-md-9">
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="user id" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Password</label>
+                    <div class="col-md-9">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="password" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-push-3">
+                        <input type="submit" value="Update" class="btn btn-success" />
+                        <br /><br />
+                        @if (ViewBag.Result != null && string.IsNullOrEmpty(ViewBag.Result) == false)
+                        {
+                            <div class="alert alert-@ViewBag.ResultStyle col-md-5">
+                                @ViewBag.Result
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        }
     </div>
 </div>
