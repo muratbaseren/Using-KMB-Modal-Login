@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using UsingModalLogin.Models;
 
@@ -77,7 +79,7 @@ namespace UsingModalLogin.Controllers
                 // TODO : KMB Modal Login - SignUp
                 KmbUser user = db.KmbUsers.FirstOrDefault(x => x.Username == register_username || x.Email == register_email);
 
-                if(user != null)
+                if (user != null)
                 {
                     result.HasError = true;
                     result.Message = "Username or e-mail address to be used.";
@@ -135,7 +137,7 @@ namespace UsingModalLogin.Controllers
                 // TODO : KMB Modal Login - Lost Password
                 KmbUser user = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Email == lost_email);
 
-                if (user != null)   
+                if (user != null)
                 {
                     //
                     // TODO : Send password with e-mail.
@@ -169,5 +171,41 @@ namespace UsingModalLogin.Controllers
 
             return View(user);
         }
+
+
+#if DEBUG
+        [HttpPost]
+        public ActionResult Index(string servername, string userid, string password, string iswinauthentication)
+        {
+            string connStr = "Server=" + servername + ";Database=KmbModalLoginTestDB;";
+
+            if (iswinauthentication != null && iswinauthentication == "on")
+            {
+                connStr += "Integrated Security=true;";
+            }
+            else
+            {
+                connStr += "User Id=" + userid + ";Password=" + password + ";";
+            }
+
+            try
+            {
+                Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
+                conf.ConnectionStrings.ConnectionStrings["KmbContext"].ConnectionString = connStr;
+                conf.Save();
+
+                ViewBag.ResultStyle = "success";
+                ViewBag.Result = "ConnectionString(KmbContext) saved to web.config with successfully..";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ResultStyle = "danger";
+                ViewBag.Result = "Error : " + ex.Message;
+            }
+
+            return View();
+        }
+#endif
+
     }
 }
