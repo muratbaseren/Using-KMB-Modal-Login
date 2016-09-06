@@ -12,6 +12,7 @@ This page provides required configuration.. **KmbLoginController.cs** includes *
 
 ![Adding Scripts to Head Block](http://goo.gl/MNkTkH)
 
+> **Use links for test on right-top corner. If you set web.config with Index page then logged user suddenly can be logout. Because web.config has changed and web application session can clear. After that it runs correctly.**
 
 ## Sample Layout
 
