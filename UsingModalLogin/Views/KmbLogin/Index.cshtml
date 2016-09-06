@@ -18,23 +18,20 @@
         text-align: left;
     }
 </style>
-
 <script>
 
     $(function () {
 
         $("#iswinauthentication").change(function () {
 
-            if ($(this).is(":checked"))
-            {
+            if ($(this).is(":checked")) {
                 $("#userid").removeAttr("required");
                 $("#password").removeAttr("required");
 
                 $("#userid").attr("disabled", "disabled");
                 $("#password").attr("disabled", "disabled");
             }
-            else
-            {
+            else {
                 $("#userid").attr("required", "required");
                 $("#password").attr("required", "required");
 
@@ -47,31 +44,101 @@
     });
 
 </script>
-
 <h2>Configurations</h2>
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <h3>Test User Information</h3>
+
+        <h3><b>Set ConnectionString in Web.Config</b></h3>
+        <p>
+            You can use below form and setting connectionstring in web.config automatically.
+            <br /><br />
+        </p>
+        @using (Html.BeginForm())
+            {
+            <div class="form-horizontal">
+
+                @if (ViewBag.Result != null && string.IsNullOrEmpty(ViewBag.Result) == false)
+                {
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div id="message" class="alert alert-@ViewBag.ResultStyle">
+                                <table>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-info-sign" style="font-size:larger;"></span></td>
+                                        <td><div style="padding-left:20px;">@Html.Raw(ViewBag.Result)</div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Server Name</label>
+                    <div class="col-md-9">
+                        <input type="text" name="servername" id="servername" class="form-control" placeholder="server name" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Database Name</label>
+                    <div class="col-md-9">
+                        <input type="text" name="databasename" id="databasename" class="form-control" placeholder="database name" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Is Windows Authentication</label>
+                    <div class="col-md-9">
+                        <input type="checkbox" name="iswinauthentication" id="iswinauthentication" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">User Id</label>
+                    <div class="col-md-9">
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="user id" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Password</label>
+                    <div class="col-md-9">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="password" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-push-3">
+                        <input type="submit" value="Update" class="btn btn-success" />
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+        }
+        <br /><br />
+        <hr />
+
+        <h3><b>Test User Information</b></h3>
         <p>
             You can use this sample account. This account will be automatically to insert SQL database with EF CodeFirst if you use Entity Framework.<br />
             <i>
                 If you should see this code which is into KmbContext file on Models folder.
             </i>
+            <br /><br />
         </p>
         <p>
             <b>Username :</b> muratbaseren<br />
             <b>Password :</b> 123<br />
             <b>E-Mail   :</b> kadirmuratbaseren@gmail.com
         </p>
+        <br /><br />
         <hr />
 
-        <h3>Entity Framework &amp; Web.Config Configuration</h3>
+
+        <h3><b>Entity Framework &amp; Web.Config Configuration</b></h3>
         <p>
             You can install Entity Framework from nuget package manager for sample Index page.<br />
-            <i>You should remove errors when EF installed</i><br /><br />
+            <i>You should remove errors when EF installed</i><br /><br /><br />
             <b class="alert alert-danger">You don't forget! For EF run, it required connection string in web.config file. You can add below line to connectionStrings section in web.config</b>
-            <br /><br />
+            <br /><br /><br />
         </p>
         <p>
             <pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
@@ -96,59 +163,7 @@
 <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
 </pre>
         </p>
-        <hr />
+        <br /><br />
 
-        <h3>Set ConnectionString in Web.Config</h3>
-        <p>
-            You can use below form and setting connectionstring in web.config automatically.
-        </p>
-
-        @using (Html.BeginForm())
-            {
-            <div class="form-horizontal">
-
-                <div class="form-group">
-                    <label class="control-label col-md-3">Server Name</label>
-                    <div class="col-md-9">
-                        <input type="text" name="servername" id="servername" class="form-control" placeholder="server name" required/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3">Is Windows Authentication</label>
-                    <div class="col-md-9">
-                        <input type="checkbox" name="iswinauthentication" id="iswinauthentication" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3">User Id</label>
-                    <div class="col-md-9">
-                        <input type="text" name="userid" id="userid" class="form-control" placeholder="user id" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3">Password</label>
-                    <div class="col-md-9">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="password" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-9 col-md-push-3">
-                        <input type="submit" value="Update" class="btn btn-success" />
-                        <br /><br />
-                        @if (ViewBag.Result != null && string.IsNullOrEmpty(ViewBag.Result) == false)
-                        {
-                            <div class="alert alert-@ViewBag.ResultStyle col-md-5">
-                                @ViewBag.Result
-                            </div>
-                        }
-                    </div>
-                </div>
-
-            </div>
-        }
     </div>
 </div>

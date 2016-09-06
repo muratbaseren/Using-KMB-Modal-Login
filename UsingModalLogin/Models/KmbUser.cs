@@ -29,5 +29,8 @@ namespace UsingModalLogin.Models
 
         [StringLength(25, ErrorMessage = "Max. 25 characters."), Required(ErrorMessage = "Şifre adı boş geçilemez."), DisplayName("Password")]
         public string Password { get; set; }
+
+        [ScaffoldColumn(false)]
+        public string ProfileImageFileName { get; set; }
     }
 }
