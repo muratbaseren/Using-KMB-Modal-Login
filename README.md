@@ -10,6 +10,8 @@ You can use Visual Studio and download modal login automatically. For download, 
 
 This page provides required configuration.. **KmbLoginController.cs** includes **Entity Framework - CodeFirst** codes. So sample database is going to create automatically but it require to set connectionstring in web.config by your Microsoft SQL Server. You can set quickly web.config with **KmbLogin/Index** page that is in Views folder. Also, sample user is going to insert to database automatically when database created. **KmbLogin/Index page has all information and configuration for you.**
 
+#### KmbLogin/Index Page
+
 ![KmbLogin/Index Page](http://goo.gl/d9RNxz)
 
 > **Use links for test on right-top corner. If you set web.config with Index page then logged user suddenly can be logout. Because web.config has changed and web application session can clear. After that it runs correctly.**
@@ -21,7 +23,11 @@ KmbLayout that in shared folder, has two partials.
 
 > **You can sure using JQuery(>=2.2.4), Bootstrap(>=3.3.0) and EntityFramework(>=6.1.3) to Project**  
 
+#### Adding Scripts to Head Block on KmbLayout
+
 ![Adding Scripts to Head Block on KmbLayout](http://goo.gl/a32GQl)
+
+#### Adding Partials to KmbLayout
 
 ![Adding Partials to KmbLayout](http://goo.gl/gqE597)
 
