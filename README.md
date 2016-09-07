@@ -19,11 +19,11 @@ This page provides required configuration.. **KmbLoginController.cs** includes *
 You can use quickly **_ModalLoginMenuItemPartial.cshtml** partial view that shows **SignIn** and **SignUp** links.
 KmbLayout that in shared folder, has two partials.
 
-> **You can sure using JQuery(>=2.2.4) and Bootstrap(>=3.3.0)**  
+> **You can sure using JQuery(>=2.2.4), Bootstrap(>=3.3.0) and EntityFramework(>=6.1.3) to Project**  
 
-![Adding Scripts to Head Block](http://goo.gl/YCZso0)
+![Adding Scripts to Head Block on KmbLayout](http://goo.gl/a32GQl)
 
-![KMBModalLogin Sample Layout Screen](http://goo.gl/35GOMW)
+![Adding Partials to KmbLayout](http://goo.gl/gqE597)
 
 
 ## Login Screen
