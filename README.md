@@ -8,7 +8,7 @@ You can use Visual Studio and download modal login automatically. For download, 
 
 ## How to use KMB Modal Login - Video
 
-[![How to use KMB Modal Login - video content](https://lh3.googleusercontent.com/S61vc8rqxGIKc_bODVXMDhrlxScCq2gXmMWZ2P43kZxh-pQ76D1DR5OOv6IkGW7rkf0X6jHqunKgcWgbJOmt3975E1vQICd7JPEn9vzIpmNw_T6sAPVUjhL9FE2H-HM_bv4l6G6APgqaYfA-pNX5gIi2PoACw8sBr1vm8CPi9sLfOTl9XU2O9z77L-9CiKphKbFwRPBMVKyGYbXdXVqq0d9su39Nx-tBNx8UtRcSr3PxituqGL26yWYIj39GF-hkTanrvMliKfLcWRUEGVt3ZdOKSua_fuLy8MQvaI6mBPGNlzUiAJQfH679nvsRcNk5M8jZ3BcP_x3bcZ6C7KzrP6XfhL8SLCns1m8otmp7T4S87Np6izkzEX55azzsSzKCUY3lMILIKryWs0DG7wkpq6ji8dmLulYNtY1dxYUqSpoWkcqC22Fb39tGoUGEyKmY6K9GiOvFRm2hJUqccsPPzcs3WpaGZ1QSQWkyhWT7-Vx1Di762d7aMMwsLyrANqFSMvOgQOD5N1IitURG7jkPYGOGkoi7MgMIJ7L1n4AkyqLVNG3lnKDWjpLvCwmjKZTrtjwAdavYGv67lsUP666DIfRkWQ9841ab335ggrVCBer_StWf=w454-h340-no)](https://youtu.be/Xc5QrWEdxnM "Using KMB Modal Login")
+[![How to use KMB Modal Login - video content](https://goo.gl/NyVs2x)(https://youtu.be/Xc5QrWEdxnM "Using KMB Modal Login")
 
 ## **You can start quickly with "/Views/KmbLogin/Index" page**
 
