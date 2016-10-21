@@ -116,6 +116,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modal-login.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Web.config" />
@@ -126,21 +131,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\KMB\Abstract\MailHelperBase.cs" />
+    <Compile Include="Helpers\KMB\Concrete\KMBConfigHelper.cs" />
+    <Compile Include="Helpers\KMB\Concrete\KMBMailHelper.cs" />
     <Compile Include="Models\KmbContext.cs" />
     <Compile Include="Models\KmbLoginJsonResult.cs" />
     <Compile Include="Models\KmbUser.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
-    <Content Include="Views\Shared\_KmbModalLoginPartial.cshtml" />
-    <Content Include="Views\Shared\_KmbModalLoginMenuPartial.cshtml" />
-    <Content Include="Views\Shared\_KmbLayout.cshtml" />
     <Content Include="Views\KmbLogin\UserProfile.cshtml" />
     <Content Include="Views\KmbLogin\Index.cshtml" />
     <Content Include="Views\KmbLogin\EditProfile.cshtml" />
+    <Content Include="Views\Shared\_KmbModalLoginPartial.cshtml" />
+    <Content Include="Views\Shared\_KmbModalLoginMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_KmbLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_KmbResetPasswordPartial.cshtml" />
+    <Content Include="Views\KmbLogin\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,4 @@
-﻿@model UsingModalLogin.Models.KmbUser
+@model UsingModalLogin.Models.KmbUser
 
 @{
     ViewBag.Title = "Edit User Profile";
@@ -48,8 +48,10 @@
             }
             <br /><br />
             <input type="file" name="ProfileImage" id="ProfileImage" class="form-control" /><br />
-            <span class="glyphicon glyphicon-info-sign">&nbsp;</span>
-            <span><i>Please use jpg or jpeg format.</i></span>
+            <div class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign">&nbsp;</span>
+                <span><i>Please use jpg, jpeg or png format.</i></span>
+            </div>
         </div>
 
         <div class="col-md-9">

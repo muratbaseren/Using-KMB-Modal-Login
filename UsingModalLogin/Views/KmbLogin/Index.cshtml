@@ -8,11 +8,6 @@
         padding-top: 50px;
     }
 
-    input[type=text],
-    input[type=password] {
-        width: 280px;
-    }
-
     .form-horizontal .control-label {
         padding-top: 10px;
         text-align: left;
@@ -77,38 +72,40 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Server Name</label>
                     <div class="col-md-9">
-                        <input type="text" name="servername" id="servername" class="form-control" placeholder="server name" required />
+                        <div class="col-md-6"><input type="text" name="servername" id="servername" class="form-control" placeholder="server name" required /></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Database Name</label>
                     <div class="col-md-9">
-                        <input type="text" name="databasename" id="databasename" class="form-control" placeholder="database name" required />
+                        <div class="col-md-6"><input type="text" name="databasename" id="databasename" class="form-control" placeholder="database name" required /></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Is Windows Authentication</label>
                     <div class="col-md-9">
-                        <input type="checkbox" name="iswinauthentication" id="iswinauthentication" />
+                        <div class="col-md-6"><input type="checkbox" name="iswinauthentication" id="iswinauthentication" /></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">User Id</label>
                     <div class="col-md-9">
-                        <input type="text" name="userid" id="userid" class="form-control" placeholder="user id" />
+                        <div class="col-md-6"><input type="text" name="userid" id="userid" class="form-control" placeholder="user id" /></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Password</label>
                     <div class="col-md-9">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="password" />
+                        <div class="col-md-6"><input type="password" name="password" id="password" class="form-control" placeholder="password" /></div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-9 col-md-push-3">
-                        <input type="submit" value="Update" class="btn btn-success" />
-                        <br /><br />
+                        <div class="col-md-6">
+                            <input type="submit" value="Update" class="btn btn-success" />
+                            <br /><br />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,9 +133,10 @@
         <h3><b>Entity Framework &amp; Web.Config Configuration</b></h3>
         <p>
             You can install Entity Framework from nuget package manager for sample Index page.<br />
-            <i>You should remove errors when EF installed</i><br /><br /><br />
-            <b class="alert alert-danger">You don't forget! For EF run, it required connection string in web.config file. You can add below line to connectionStrings section in web.config</b>
-            <br /><br /><br />
+            <i>You should remove errors when EF installed</i>
+        </p>
+        <p class="alert alert-danger">
+            <b>You don't forget! For EF run, it required connection string in web.config file. You can add below line to connectionStrings section in web.config</b>
         </p>
         <p>
             <pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>

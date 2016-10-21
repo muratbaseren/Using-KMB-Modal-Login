@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using UsingModalLogin.Helpers.KMB.Concrete;
 using UsingModalLogin.Models;
 
 namespace UsingModalLogin.Controllers
@@ -13,6 +15,7 @@ namespace UsingModalLogin.Controllers
     {
         // TODO : EF DatabaseContext Sample
         private KmbContext db = new KmbContext();
+        private KMBMailHelper mailer = new KMBMailHelper();
 
         // TODO : Sample Index Page - You can remove this.
         public ActionResult Index()
@@ -133,16 +136,63 @@ namespace UsingModalLogin.Controllers
             else
             {
                 // TODO : KMB Modal Login - Lost Password
-                KmbUser user = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Email == lost_email);
+                KmbUser user = db.KmbUsers.FirstOrDefault(x => x.Email == lost_email);
 
                 if (user != null)
                 {
                     //
                     // TODO : Send password with e-mail.
+                    // Reads mail settings from AppSettings into web.config file.
                     //
 
-                    result.HasError = false;
-                    result.Message = "Password has been sent.";
+                    #region Sends password to user mail address.
+                    // Sends password to user mail address.
+                    //bool sent = mailer.SendMail($"<b>Your password :</b> {user.Password}",
+                    //                user.Email, "Your missed password", true);
+
+                    //if (sent == false)
+                    //{
+                    //    result.HasError = true;
+                    //    result.Message = "Password has not been sent.";
+                    //}
+                    //else
+                    //{
+                    //    result.HasError = false;
+                    //    result.Message = "Password has been sent.";
+                    //}
+                    #endregion
+
+
+                    #region Sends password reset link to user mail address.
+                    // Sends password reset link to user mail address.
+                    user.LostPasswordToken = Guid.NewGuid();
+
+                    if (db.SaveChanges() > 0)
+                    {
+                        bool sent = mailer.SendMail(
+                            $"<b>Your reset password link :</b> <a href='http://{Request.Url.Authority}/KmbLogin/ResetPassword/{user.LostPasswordToken}' target='_blank'>Reset Password</a>",
+                            user.Email, "Reset Password", true);
+
+                        if (sent == false)
+                        {
+                            result.HasError = true;
+                            result.Message = "Reset Password link has not been sent.";
+                        }
+                        else
+                        {
+                            result.HasError = false;
+                            result.Message = "Reset Password link has been sent.";
+                        }
+                    }
+                    else
+                    {
+                        result.HasError = true;
+                        result.Message = "Error occured.";
+                    }
+
+                    #endregion
+
+
                 }
                 else
                 {
@@ -158,7 +208,7 @@ namespace UsingModalLogin.Controllers
         {
             Session.Clear();
 
-            // TODO : Regdirect Url after SignOut
+            // TODO : Redirect Url after SignOut
             return RedirectToAction("Index", "KmbLogin");
         }
 
@@ -171,7 +221,6 @@ namespace UsingModalLogin.Controllers
 
             return View(user);
         }
-
 
         public ActionResult EditProfile()
         {
@@ -220,10 +269,13 @@ namespace UsingModalLogin.Controllers
             {
                 if (ProfileImage != null &&
                     (ProfileImage.ContentType == "image/jpeg" ||
-                    ProfileImage.ContentType == "image/jpg"))
+                    ProfileImage.ContentType == "image/jpg" ||
+                    ProfileImage.ContentType == "image/png"))
                 {
-                    ProfileImage.SaveAs(Server.MapPath("~/images/user_" + user.Id + ".jpeg"));
-                    usr.ProfileImageFileName = "user_" + user.Id + ".jpeg";
+                    string extension = ProfileImage.ContentType.Replace("image/", "");
+
+                    ProfileImage.SaveAs(Server.MapPath($"~/images/user_{user.Id}.{extension}"));
+                    usr.ProfileImageFileName = $"user_{user.Id}.{extension}";
                 }
 
                 usr.Username = user.Username;
@@ -246,7 +298,6 @@ namespace UsingModalLogin.Controllers
             return View(user);
         }
 
-
         public ActionResult DeleteProfile()
         {
             if (Session["login"] == null)
@@ -263,6 +314,48 @@ namespace UsingModalLogin.Controllers
             }
 
             return RedirectToAction("UserProfile");
+        }
+
+        public ActionResult ResetPassword(Guid? id)
+        {
+            return View(new ResetPasswordViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(Guid? id, ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            KmbUser user = db.KmbUsers.FirstOrDefault(x => x.LostPasswordToken == id);
+
+            if (user == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            if (model.Password == model.PasswordRepeat)
+            {
+                user.Password = model.Password;
+
+                if (db.SaveChanges() > 0)
+                {
+                    // if saving is success, we are updating reset password date and reset pasword token. Because token mustn't use again.
+                    user.LastResetPasswordDate = DateTime.Now;
+                    user.LostPasswordToken = null;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(nameof(model.PasswordRepeat), "Þifre ile Þifre tekrar uyuþmuyor.");
+                return View(model);
+            }
+
+            // TODO : Redirect Url after Reset Passowd
+            return RedirectToAction("Index", "KmbLogin");
         }
 
 
