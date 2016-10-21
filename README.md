@@ -8,7 +8,7 @@ You can use Visual Studio and download modal login automatically. For download, 
 
 ## How to use KMB Modal Login - Video
 
-[![How to use KMB Modal Login - video content](https://lh3.googleusercontent.com/8Go6-APj7Ew2beQ1BKH2lv9uZF7iMZesPfGDDt-l8BUd5RIb7wxU5dY1JzEKt5jTGm_NLz4ctM5_DB-fV1lJpzP2JFjR7XDDFrnVsO8db6L3Dv9CYTxEFoREQLZ-uBmjwvPCMs-sdMCx9EzdRDvGcnAQXqvu9jMkLTh33ZcNJkf942SB6ypRjYaZ_szzdA3K9y9OSrQAjCz6VUO5HJLm2BN-UCnIVzZj4qwTJMIvSur_whTtoH21VtOjNJ5z1pTWKsyjSeC88MkhGVSUnPt7HoEcDgEj1onTsciC46upJ7_gWcvxx9JorWwt1JbTqpdzX6KktBt5BsRHBh0gqlNHo22z3NpqIpQDCtg9ZUsGAdnqx2BoYt0gIbeJB4baxzmZ9KFmDsTBToRWAg9tmRJwD0FvTYLUlg3_VTP0DTMs5wH9fOwJiwR3LxmFys77vls9Kb7qb4-iSSAaT3dqEhtrAGplD4JzoWrVywwrrE0YkKaSBcUnv7qq-fhlA32209tlzBswYeNUOrjVzlzatNiT9Z5kk98zqhzupn7noQgGUK-HbZa_CP9wRYsH9jGItwCAqfW2A-E=s454-w200-no)](https://youtu.be/Xc5QrWEdxnM "Using KMB Modal Login")
+[![How to use KMB Modal Login - video content](https://goo.gl/photos/bZP7k58cGkBVAuaS8)](https://youtu.be/Xc5QrWEdxnM "Using KMB Modal Login")
 
 ## **You can start quickly with "/Views/KmbLogin/Index" page**
 
