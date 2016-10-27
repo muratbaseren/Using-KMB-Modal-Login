@@ -1,16 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace UsingModalLogin.Models
+namespace UsingModalLogin.ModalLogin.Models
 {
-    [Table("KmbUsersTable")]
-    public partial class KmbUser
+    [Table("LoginUsers")]
+    public partial class LoginUser
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

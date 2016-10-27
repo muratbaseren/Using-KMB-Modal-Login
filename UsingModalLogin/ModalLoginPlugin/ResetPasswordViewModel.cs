@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace UsingModalLogin.Models
+namespace UsingModalLogin.ModalLogin
 {
     public class ResetPasswordViewModel
     {

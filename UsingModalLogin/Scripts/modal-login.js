@@ -6,9 +6,9 @@
    #   Created       : 07/29/2015
    #   Last Change   : 08/04/2015
    #
-   #   Updated		 : 02.09.2016
+   #   Updated		 : 27.10.2016
    #   Author 		 : K. Murat Baseren (www.muratbaseren.com.tr)
-   #   Current Ver.  : 2.0
+   #   Current Ver.  : 2.6
    #
    ##################################################################### */
 
@@ -104,11 +104,11 @@ $(function () {
 
                 $.ajax({
                     method: "post",
-                    url: "/KmbLogin/SignIn",
+                    url: "/ModalLogin/SignIn",
                     data: { login_username: $lg_username, login_password: $lg_password, login_rememberme: $lg_rememberme }
                 }).done(function (res) {
                     if (res.HasError) {
-                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", res.Message);
+                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", res.Result);
 
                         $('#login_username').val("");
                         $('#login_password').val("");
@@ -116,7 +116,7 @@ $(function () {
                         $("#login_submit_btn").removeAttr("disabled");
                     }
                     else {
-                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", res.Message);
+                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", res.Result);
 
                         setTimeout(function () {
                             location.reload();
@@ -131,16 +131,16 @@ $(function () {
 
                 $.ajax({
                     method: "post",
-                    url: "/KmbLogin/LostPassword",
+                    url: "/ModalLogin/LostPassword",
                     data: { lost_email: $ls_email }
                 }).done(function (res) {
                     if (res.HasError) {
-                        msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", res.Message);
+                        msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", res.Result);
 
                         $('#lost_email').val("");
                     }
                     else {
-                        msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", res.Message);
+                        msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", res.Result);
                     }
                 });
 
@@ -155,11 +155,11 @@ $(function () {
 
                 $.ajax({
                     method: "post",
-                    url: "/KmbLogin/SignUp",
+                    url: "/ModalLogin/SignUp",
                     data: { register_username: $rg_username, register_email: $rg_email, register_password: $rg_password }
                 }).done(function (res) {
                     if (res.HasError) {
-                        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", res.Message);
+                        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", res.Result);
 
                         $("#register_submit_btn").removeAttr("disabled");
 
@@ -168,7 +168,7 @@ $(function () {
                         $('#register_password').val("");
                     }
                     else {
-                        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", res.Message);
+                        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", res.Result);
 
                         setTimeout(function () {
                             location.reload();

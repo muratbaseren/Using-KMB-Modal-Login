@@ -123,37 +123,39 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modal-login.js" />
     <Content Include="Scripts\npm.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\KmbLoginController.cs" />
+    <Compile Include="ModalLoginPlugin\Abstract\ILoginController.cs" />
+    <Compile Include="Controllers\ModalLoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\KMB\Abstract\MailHelperBase.cs" />
-    <Compile Include="Helpers\KMB\Concrete\KMBConfigHelper.cs" />
-    <Compile Include="Helpers\KMB\Concrete\KMBMailHelper.cs" />
-    <Compile Include="Models\KmbContext.cs" />
-    <Compile Include="Models\KmbLoginJsonResult.cs" />
-    <Compile Include="Models\KmbUser.cs" />
-    <Compile Include="Models\ResetPasswordViewModel.cs" />
+    <Compile Include="Infrastructure\Abstract\MailHelperBase.cs" />
+    <Compile Include="Infrastructure\Concrete\ConfigHelper.cs" />
+    <Compile Include="Infrastructure\Concrete\MailHelper.cs" />
+    <Compile Include="Context\SampleDatabaseContext.cs" />
+    <Compile Include="Infrastructure\Abstract\MyJsonResult.cs" />
+    <Compile Include="ModalLoginPlugin\ModalLoginJsonResult.cs" />
+    <Compile Include="ModalLoginPlugin\Models\LoginUser.cs" />
+    <Compile Include="ModalLoginPlugin\ResetPasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
-    <Content Include="Views\KmbLogin\UserProfile.cshtml" />
-    <Content Include="Views\KmbLogin\Index.cshtml" />
-    <Content Include="Views\KmbLogin\EditProfile.cshtml" />
-    <Content Include="Views\Shared\_KmbModalLoginPartial.cshtml" />
-    <Content Include="Views\Shared\_KmbModalLoginMenuPartial.cshtml" />
-    <Content Include="Views\Shared\_KmbLayout.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_KmbResetPasswordPartial.cshtml" />
-    <Content Include="Views\KmbLogin\ResetPassword.cshtml" />
+    <Content Include="Views\ModalLogin\UserProfile.cshtml" />
+    <Content Include="Views\ModalLogin\Index.cshtml" />
+    <Content Include="Views\ModalLogin\EditProfile.cshtml" />
+    <Content Include="Views\Shared\_ModalLoginPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalLoginMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalLoginLayout.cshtml" />
+    <Content Include="Views\Shared\_ModalLoginResetPasswordPartial.cshtml" />
+    <Content Include="Views\ModalLogin\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -163,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

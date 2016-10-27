@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_KmbLayout.cshtml";
+    Layout = "~/Views/Shared/_ModalLoginLayout.cshtml";
 }
 <style>
     body {
@@ -117,7 +117,7 @@
         <p>
             You can use this sample account. This account will be automatically to insert SQL database with EF CodeFirst if you use Entity Framework.<br />
             <i>
-                If you should see this code which is into KmbContext file on Models folder.
+                If you should see this code which is into SampleDatabaseContext file on Models folder.
             </i>
             <br /><br />
         </p>
@@ -142,9 +142,9 @@
             <pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
             <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> With Windows Authentication </span><span style='color:#696969; '>--></span>
             <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>add</span> 
-            <span style='color:#274796; '>name</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>KmbContext</span><span style='color:#800000; '>"</span> 
+            <span style='color:#274796; '>name</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>SampleDatabaseContext</span><span style='color:#800000; '>"</span> 
             <span style='color:#274796; '>providerName</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>System.Data.SqlClient</span><span style='color:#800000; '>"</span> 
-            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=[Server Name];Database=KMBUsersTableTest;Integrated Security=true;</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
+            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=[Server Name];Database=ModalLoginTestDB1;Integrated Security=true;</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
   
 <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
 </pre>
@@ -154,9 +154,9 @@
             <pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
             <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> With SQL Authentication </span><span style='color:#696969; '>--></span>
             <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>add</span> 
-            <span style='color:#274796; '>name</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>KmbContext</span><span style='color:#800000; '>"</span> 
+            <span style='color:#274796; '>name</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>SampleDatabaseContext</span><span style='color:#800000; '>"</span> 
             <span style='color:#274796; '>providerName</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>System.Data.SqlClient</span><span style='color:#800000; '>"</span> 
-            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=[Server Name];Database=KMBUsersTableTest;User Id=[username];Password=[pass]</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
+            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=[Server Name];Database=ModalLoginTestDB1;User Id=[username];Password=[pass]</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
   
 <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
 </pre>

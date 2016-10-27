@@ -6,16 +6,19 @@ using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using UsingModalLogin.Helpers.KMB.Concrete;
-using UsingModalLogin.Models;
+using UsingModalLogin.Context;
+using UsingModalLogin.Infrastructure.Concrete;
+using UsingModalLogin.ModalLogin;
+using UsingModalLogin.ModalLogin.Abstract;
+using UsingModalLogin.ModalLogin.Models;
 
 namespace UsingModalLogin.Controllers
 {
-    public class KmbLoginController : Controller
+    public class ModalLoginController : Controller, ILoginController<LoginUser, ResetPasswordViewModel>
     {
         // TODO : EF DatabaseContext Sample
-        private KmbContext db = new KmbContext();
-        private KMBMailHelper mailer = new KMBMailHelper();
+        private SampleDatabaseContext db = new SampleDatabaseContext();
+        private MailHelper mailer = new MailHelper();
 
         // TODO : Sample Index Page - You can remove this.
         public ActionResult Index()
@@ -26,7 +29,7 @@ namespace UsingModalLogin.Controllers
         [HttpPost]
         public JsonResult SignIn(string login_username, string login_password, bool login_rememberme)
         {
-            KmbLoginJsonResult result = new KmbLoginJsonResult();
+            ModalLoginJsonResult result = new ModalLoginJsonResult();
 
             login_username = login_username?.Trim();
             login_password = login_password?.Trim();
@@ -34,18 +37,18 @@ namespace UsingModalLogin.Controllers
             if (string.IsNullOrEmpty(login_username) || string.IsNullOrEmpty(login_password))
             {
                 result.HasError = true;
-                result.Message = "Username and password can not be empty.";
+                result.Result = "Username and password can not be empty.";
             }
             else
             {
                 // AsNoTracking : This should be used for example if you want to load entity only to read data and you don't plan to modify them.
 
-                KmbUser user = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Username == login_username && x.Password == login_password);
+                LoginUser user = db.LoginUsers.AsNoTracking().FirstOrDefault(x => x.Username == login_username && x.Password == login_password);
 
                 if (user != null)
                 {
                     result.HasError = false;
-                    result.Message = "Login successfully.";
+                    result.Result = "Login successfully.";
 
                     user.Password = string.Empty;   // Session is not include pass for security.
 
@@ -55,7 +58,7 @@ namespace UsingModalLogin.Controllers
                 else
                 {
                     result.HasError = true;
-                    result.Message = "Username or password is wrong.";
+                    result.Result = "Username or password is wrong.";
                 }
             }
 
@@ -65,7 +68,7 @@ namespace UsingModalLogin.Controllers
         [HttpPost]
         public JsonResult SignUp(string register_username, string register_email, string register_password)
         {
-            KmbLoginJsonResult result = new KmbLoginJsonResult();
+            ModalLoginJsonResult result = new ModalLoginJsonResult();
 
             register_username = register_username?.Trim();
             register_email = register_email?.Trim();
@@ -74,20 +77,20 @@ namespace UsingModalLogin.Controllers
             if (string.IsNullOrEmpty(register_username) || string.IsNullOrEmpty(register_email) || string.IsNullOrEmpty(register_password))
             {
                 result.HasError = true;
-                result.Message = "Please, fill all blank fields.";
+                result.Result = "Please, fill all blank fields.";
             }
             else
             {
-                KmbUser user = db.KmbUsers.FirstOrDefault(x => x.Username == register_username || x.Email == register_email);
+                LoginUser user = db.LoginUsers.FirstOrDefault(x => x.Username == register_username || x.Email == register_email);
 
                 if (user != null)
                 {
                     result.HasError = true;
-                    result.Message = "Username or e-mail address to be used.";
+                    result.Result = "Username or e-mail address to be used.";
                 }
                 else
                 {
-                    user = db.KmbUsers.Add(new KmbUser()
+                    user = db.LoginUsers.Add(new LoginUser()
                     {
                         Name = string.Empty,
                         Surname = string.Empty,
@@ -99,7 +102,7 @@ namespace UsingModalLogin.Controllers
                     if (db.SaveChanges() > 0)
                     {
                         result.HasError = false;
-                        result.Message = "Account created.";
+                        result.Result = "Account created.";
 
                         // Detached : This should be used for example if you want to load entity only to read data and you don't plan to modify them.
                         db.Entry(user).State = System.Data.Entity.EntityState.Detached;
@@ -112,7 +115,7 @@ namespace UsingModalLogin.Controllers
                     else
                     {
                         result.HasError = true;
-                        result.Message = "Error occured.";
+                        result.Result = "Error occured.";
                     }
                 }
             }
@@ -124,19 +127,19 @@ namespace UsingModalLogin.Controllers
         [HttpPost]
         public JsonResult LostPassword(string lost_email)
         {
-            KmbLoginJsonResult result = new KmbLoginJsonResult();
+            ModalLoginJsonResult result = new ModalLoginJsonResult();
 
             lost_email = lost_email?.Trim();
 
             if (string.IsNullOrEmpty(lost_email))
             {
                 result.HasError = true;
-                result.Message = "E-Mail address can not be empty.";
+                result.Result = "E-Mail address can not be empty.";
             }
             else
             {
                 // TODO : KMB Modal Login - Lost Password
-                KmbUser user = db.KmbUsers.FirstOrDefault(x => x.Email == lost_email);
+                LoginUser user = db.LoginUsers.FirstOrDefault(x => x.Email == lost_email);
 
                 if (user != null)
                 {
@@ -148,17 +151,17 @@ namespace UsingModalLogin.Controllers
                     #region Sends password to user mail address.
                     // Sends password to user mail address.
                     //bool sent = mailer.SendMail($"<b>Your password :</b> {user.Password}",
-                    //                user.Email, "Your missed password", true);
+                    //user.Email, "Your missed password", true);
 
                     //if (sent == false)
                     //{
                     //    result.HasError = true;
-                    //    result.Message = "Password has not been sent.";
+                    //    result.Result = "Password has not been sent.";
                     //}
                     //else
                     //{
                     //    result.HasError = false;
-                    //    result.Message = "Password has been sent.";
+                    //    result.Result = "Password has been sent.";
                     //}
                     #endregion
 
@@ -170,24 +173,24 @@ namespace UsingModalLogin.Controllers
                     if (db.SaveChanges() > 0)
                     {
                         bool sent = mailer.SendMail(
-                            $"<b>Your reset password link :</b> <a href='http://{Request.Url.Authority}/KmbLogin/ResetPassword/{user.LostPasswordToken}' target='_blank'>Reset Password</a>",
+                            $"<b>Your reset password link :</b> <a href='http://{Request.Url.Authority}/ModalLogin/ResetPassword/{user.LostPasswordToken}' target='_blank'>Reset Password</a>",
                             user.Email, "Reset Password", true);
 
                         if (sent == false)
                         {
                             result.HasError = true;
-                            result.Message = "Reset Password link has not been sent.";
+                            result.Result = "Reset Password link has not been sent.";
                         }
                         else
                         {
                             result.HasError = false;
-                            result.Message = "Reset Password link has been sent.";
+                            result.Result = "Reset Password link has been sent.";
                         }
                     }
                     else
                     {
                         result.HasError = true;
-                        result.Message = "Error occured.";
+                        result.Result = "Error occured.";
                     }
 
                     #endregion
@@ -197,7 +200,7 @@ namespace UsingModalLogin.Controllers
                 else
                 {
                     result.HasError = true;
-                    result.Message = "E-Mail address not found.";
+                    result.Result = "E-Mail address not found.";
                 }
             }
 
@@ -209,7 +212,7 @@ namespace UsingModalLogin.Controllers
             Session.Clear();
 
             // TODO : Redirect Url after SignOut
-            return RedirectToAction("Index", "KmbLogin");
+            return RedirectToAction("Index");
         }
 
         public ActionResult UserProfile()
@@ -217,7 +220,7 @@ namespace UsingModalLogin.Controllers
             if (Session["login"] == null)
                 return RedirectToAction("Index");
 
-            KmbUser user = Session["login"] as KmbUser;
+            LoginUser user = Session["login"] as LoginUser;
 
             return View(user);
         }
@@ -227,20 +230,20 @@ namespace UsingModalLogin.Controllers
             if (Session["login"] == null)
                 return RedirectToAction("Index");
 
-            KmbUser user = Session["login"] as KmbUser;
+            LoginUser user = Session["login"] as LoginUser;
 
             return View(user);
         }
 
         [HttpPost]
-        public ActionResult EditProfile(KmbUser user, HttpPostedFileBase ProfileImage)
+        public ActionResult EditProfile(LoginUser user, HttpPostedFileBase ProfileImage)
         {
-            KmbUser usr = db.KmbUsers.Find(user.Id);
+            LoginUser usr = db.LoginUsers.Find(user.Id);
 
             if (user.Username != usr.Username)
             {
                 // if username is using then not acceptable.
-                KmbUser chk = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Username == user.Username);
+                LoginUser chk = db.LoginUsers.AsNoTracking().FirstOrDefault(x => x.Username == user.Username);
 
                 if (chk != null)
                 {
@@ -254,7 +257,7 @@ namespace UsingModalLogin.Controllers
             if (user.Email != usr.Email)
             {
                 // if email is using then not acceptable.
-                KmbUser chk = db.KmbUsers.AsNoTracking().FirstOrDefault(x => x.Email == user.Email);
+                LoginUser chk = db.LoginUsers.AsNoTracking().FirstOrDefault(x => x.Email == user.Email);
 
                 if (chk != null)
                 {
@@ -303,9 +306,9 @@ namespace UsingModalLogin.Controllers
             if (Session["login"] == null)
                 return RedirectToAction("Index");
 
-            KmbUser user = Session["login"] as KmbUser;
+            LoginUser user = Session["login"] as LoginUser;
 
-            db.KmbUsers.Remove(db.KmbUsers.Find(user.Id));
+            db.LoginUsers.Remove(db.LoginUsers.Find(user.Id));
 
             if (db.SaveChanges() > 0)
             {
@@ -331,7 +334,7 @@ namespace UsingModalLogin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            KmbUser user = db.KmbUsers.FirstOrDefault(x => x.LostPasswordToken == id);
+            LoginUser user = db.LoginUsers.FirstOrDefault(x => x.LostPasswordToken == id);
 
             if (user == null)
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -355,7 +358,7 @@ namespace UsingModalLogin.Controllers
             }
 
             // TODO : Redirect Url after Reset Passowd
-            return RedirectToAction("Index", "KmbLogin");
+            return RedirectToAction("Index", "ModalLogin");
         }
 
 

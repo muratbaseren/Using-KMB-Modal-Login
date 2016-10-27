@@ -1,8 +1,8 @@
-@model UsingModalLogin.Models.KmbUser
+@model UsingModalLogin.ModalLogin.Models.LoginUser
 
 @{
     ViewBag.Title = "Edit User Profile";
-    Layout = "~/Views/Shared/_KmbLayout.cshtml";
+    Layout = "~/Views/Shared/_ModalLoginLayout.cshtml";
 }
 
 <style>
@@ -32,7 +32,7 @@
 <h2>@ViewBag.Title</h2>
 <hr />
 
-@using (Html.BeginForm("EditProfile", "KmbLogin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditProfile", "ModalLogin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -102,7 +102,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-success" />
-                    @Html.ActionLink("Back to Profile", "UserProfile", "KmbLogin", null, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Back to Profile", "UserProfile", "ModalLogin", null, new { @class = "btn btn-default" })
                 </div>
             </div>
 

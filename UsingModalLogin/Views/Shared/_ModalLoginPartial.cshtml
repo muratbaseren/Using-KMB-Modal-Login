@@ -1,4 +1,3 @@
-@using UsingModalLogin.Models
 
 @if (Session["login"] == null)
 {
@@ -17,7 +16,7 @@
                 <div id="div-forms">
 
                     <!-- Begin # Login Form -->
-                    <form id="login-form" action="/KmbLogin/SignIn" method="post">
+                    <form id="login-form" action="/ModalLogin/SignIn" method="post">
                         <div class="modal-body">
                             <div id="div-login-msg">
                                 <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -33,7 +32,7 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <button id="login_submit_btn" type="submit" class="btn btn-primary btn-lg btn-block">SignIn</button>
+                                <button id="login_submit_btn" type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
                             </div>
                             <div>
                                 <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
@@ -43,7 +42,7 @@
                     </form>
                     <!-- End # Login Form -->
                     <!-- Begin | Lost Password Form -->
-                    <form id="lost-form" style="display:none;" action="/KmbLogin/LostPassword" method="post">
+                    <form id="lost-form" style="display:none;" action="/ModalLogin/LostPassword" method="post">
                         <div class="modal-body">
                             <div id="div-lost-msg">
                                 <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -63,7 +62,7 @@
                     </form>
                     <!-- End | Lost Password Form -->
                     <!-- Begin | Register Form -->
-                    <form id="register-form" style="display:none;" action="/KmbLogin/SignUp" method="post">
+                    <form id="register-form" style="display:none;" action="/ModalLogin/SignUp" method="post">
                         <div class="modal-body">
                             <div id="div-register-msg">
                                 <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div>

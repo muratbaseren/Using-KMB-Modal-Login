@@ -2,27 +2,18 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using UsingModalLogin.Helpers.KMB.Abstract;
-using UsingModalLogin.Helpers.KMB.Concrete;
+using UsingModalLogin.Infrastructure.Abstract;
 
-namespace UsingModalLogin.Helpers.KMB.Concrete
+namespace UsingModalLogin.Infrastructure.Concrete
 {
-    internal partial class KMBMailHelper : MailHelperBase
+    internal partial class MailHelper : MailHelperBase
     {
-        public KMBMailHelper()
+        public MailHelper() : base()
         {
-            MailHost = KMBConfigHelper.MailHost;
-            MailPort = int.Parse(KMBConfigHelper.MailPort);
-            MailUsername = KMBConfigHelper.MailUid;
-            MailPassword = KMBConfigHelper.MailPass;
         }
 
-        public KMBMailHelper(string host, int port, string username, string password)
+        public MailHelper(string host, int port, string username, string password) : base(host, port, username, password)
         {
-            MailHost = host;
-            MailPort = port;
-            MailUsername = username;
-            MailPassword = password;
         }
 
 
@@ -50,11 +41,11 @@ namespace UsingModalLogin.Helpers.KMB.Concrete
                 message.Body = body;
                 message.IsBodyHtml = isHtml;
 
-                using (var smtp = 
+                using (var smtp =
                     new SmtpClient(MailHost, MailPort))
                 {
                     smtp.EnableSsl = false;
-                    smtp.Credentials = 
+                    smtp.Credentials =
                         new NetworkCredential(MailUsername, MailPassword);
 
                     smtp.Send(message);

@@ -1,17 +1,17 @@
-@using UsingModalLogin.Models
+@using UsingModalLogin.ModalLogin.Models
 
 <ul class="nav navbar-nav navbar-right">
     @if (Session["login"] != null)
     {
-        var username = (Session["login"] as KmbUser).Username;
+        var username = (Session["login"] as LoginUser).Username;
 
         <li>
-            <a href="/KmbLogin/UserProfile">
+            <a href="/ModalLogin/UserProfile">
                 <span class="glyphicon glyphicon-user">&nbsp;</span>@username
             </a>
         </li>
         <li>
-            <a href="/KmbLogin/SignOut">
+            <a href="/ModalLogin/SignOut">
                 <span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout
             </a>
         </li>
