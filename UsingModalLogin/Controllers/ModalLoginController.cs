@@ -330,7 +330,7 @@ namespace UsingModalLogin.Controllers
             try
             {
                 Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
-                conf.ConnectionStrings.ConnectionStrings["KmbContext"].ConnectionString = connStr;
+                conf.ConnectionStrings.ConnectionStrings["SampleDatabaseContext"].ConnectionString = connStr;
                 conf.Save();
 
                 ViewBag.ResultStyle = "success";
