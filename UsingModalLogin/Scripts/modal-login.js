@@ -16,7 +16,6 @@ $(function () {
 
     var $formLogin = $('#login-form');
     var $formLost = $('#lost-form');
-    var $formRegister = $('#register-form');
     var $divForms = $('#div-forms');
     var $modalAnimateTime = 300;
     var $msgAnimateTime = 150;
@@ -31,12 +30,7 @@ $(function () {
             return;
 
         if (mode == "login") {
-            // mode value is "login" then; and last panel is "register" or "lost" then, show to "login" with animate.
-            if ($formRegister.css("display") != "none") {
-                setTimeout(function () {
-                    modalAnimate($formRegister, $formLogin);
-                }, 500);
-            }
+            // mode value is "login" then; and last panel is "lost" then, show to "login" with animate.
 
             if ($formLost.css("display") != "none") {
                 setTimeout(function () {
@@ -45,27 +39,8 @@ $(function () {
             }
 
         }
-        else if (mode == "register") {
-            // mode value is "register" then; and last panel is "login" or "lost" then, show to "register" with animate.
-            if ($formLogin.css("display") != "none") {
-                setTimeout(function () {
-                    modalAnimate($formLogin, $formRegister);
-                }, 500);
-            }
-
-            if ($formLost.css("display") != "none") {
-                setTimeout(function () {
-                    modalAnimate($formLost, $formRegister);
-                }, 500);
-            }
-        }
         else if (mode == "lost") {
-            // mode value is "lost" then; and last panel is "register" or "login" then, show to "lost" with animate.
-            if ($formRegister.css("display") != "none") {
-                setTimeout(function () {
-                    modalAnimate($formRegister, $formLost);
-                }, 500);
-            }
+            // mode value is "lost" then; and last panel is "login" then, show to "lost" with animate.
 
             if ($formLogin.css("display") != "none") {
                 setTimeout(function () {
@@ -74,13 +49,8 @@ $(function () {
             }
         }
         else {
-            // mode has not value then; and last panel is "register" or "lost" then, show to "login" with animate.
-            if ($formRegister.css("display") != "none") {
-                setTimeout(function () {
-                    modalAnimate($formRegister, $formLogin);
-                }, 500);
-            }
-
+            // mode has not value then; and last panel is "lost" then, show to "login" with animate.
+            
             if ($formLost.css("display") != "none") {
                 setTimeout(function () {
                     modalAnimate($formLost, $formLogin);
@@ -146,38 +116,6 @@ $(function () {
 
                 return false;
                 break;
-            case "register-form":
-                var $rg_username = $('#register_username').val();
-                var $rg_email = $('#register_email').val();
-                var $rg_password = $('#register_password').val();
-
-                $("#register_submit_btn").attr("disabled", "disabled");
-
-                $.ajax({
-                    method: "post",
-                    url: "/ModalLogin/SignUp",
-                    data: { register_username: $rg_username, register_email: $rg_email, register_password: $rg_password }
-                }).done(function (res) {
-                    if (res.HasError) {
-                        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", res.Result);
-
-                        $("#register_submit_btn").removeAttr("disabled");
-
-                        $('#register_username').val("");
-                        $('#register_email').val("");
-                        $('#register_password').val("");
-                    }
-                    else {
-                        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", res.Result);
-
-                        setTimeout(function () {
-                            location.reload();
-                        }, 2000);
-                    }
-                });
-
-                return false;
-                break;
             default:
                 return false;
         }
@@ -185,12 +123,9 @@ $(function () {
         return false;
     });
 
-    $('#login_register_btn').click(function () { modalAnimate($formLogin, $formRegister) });
-    $('#register_login_btn').click(function () { modalAnimate($formRegister, $formLogin); });
+    
     $('#login_lost_btn').click(function () { modalAnimate($formLogin, $formLost); });
     $('#lost_login_btn').click(function () { modalAnimate($formLost, $formLogin); });
-    $('#lost_register_btn').click(function () { modalAnimate($formLost, $formRegister); });
-    $('#register_lost_btn').click(function () { modalAnimate($formRegister, $formLost); });
 
     function modalAnimate($oldForm, $newForm) {
         var $oldH = $oldForm.height();

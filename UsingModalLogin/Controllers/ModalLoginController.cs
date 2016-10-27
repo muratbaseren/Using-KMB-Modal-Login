@@ -66,65 +66,6 @@ namespace UsingModalLogin.Controllers
         }
 
         [HttpPost]
-        public JsonResult SignUp(string register_username, string register_email, string register_password)
-        {
-            ModalLoginJsonResult result = new ModalLoginJsonResult();
-
-            register_username = register_username?.Trim();
-            register_email = register_email?.Trim();
-            register_password = register_password?.Trim();
-
-            if (string.IsNullOrEmpty(register_username) || string.IsNullOrEmpty(register_email) || string.IsNullOrEmpty(register_password))
-            {
-                result.HasError = true;
-                result.Result = "Please, fill all blank fields.";
-            }
-            else
-            {
-                LoginUser user = db.LoginUsers.FirstOrDefault(x => x.Username == register_username || x.Email == register_email);
-
-                if (user != null)
-                {
-                    result.HasError = true;
-                    result.Result = "Username or e-mail address to be used.";
-                }
-                else
-                {
-                    user = db.LoginUsers.Add(new LoginUser()
-                    {
-                        Name = string.Empty,
-                        Surname = string.Empty,
-                        Email = register_email,
-                        Username = register_username,
-                        Password = register_password
-                    });
-
-                    if (db.SaveChanges() > 0)
-                    {
-                        result.HasError = false;
-                        result.Result = "Account created.";
-
-                        // Detached : This should be used for example if you want to load entity only to read data and you don't plan to modify them.
-                        db.Entry(user).State = System.Data.Entity.EntityState.Detached;
-
-                        user.Password = string.Empty;   // Session is not include pass for security.
-
-                        // Set login to session for auto login from register.
-                        Session["login"] = user;
-                    }
-                    else
-                    {
-                        result.HasError = true;
-                        result.Result = "Error occured.";
-                    }
-                }
-            }
-
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
         public JsonResult LostPassword(string lost_email)
         {
             ModalLoginJsonResult result = new ModalLoginJsonResult();
