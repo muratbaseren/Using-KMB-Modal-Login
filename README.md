@@ -4,6 +4,7 @@
 ![KMB Modal Login - Login Page](https://github.com/kadirmuratbaseren/Using-KMB-Modal-Login/blob/master/ReadmeFiles/04-kmb-modal-login-login-page.png?raw=true)
 
 
+
 ## Ne Sağlar?
 
 **[Modal Login with Jquery Effects](http://bootsnipp.com/snippets/featured/modal-login-with-jquery-effects)** snippet'ının ASP.NET MVC projesi ile kullanılacak şekilde uyarlanmış halidir. **Login(giriş), register(kayıt), lost password(şifremi unuttum) pencereleri ile basit bir profil sayfası içerir. Profil güncelleme, silme işlemleri içinde gerekli ekran ve kodlamalar yapılmıştır.** 
@@ -13,6 +14,7 @@
 E-posta gönderme kodları proje içinde mevcuttur. **Web.config 'den gerekli ayarların yapılması ile e-posta gönderme ve veritabanı ayarlarının yapılması yeterli olacaktır.** 
 
 Modal Login, kendi Controller'ına sahiptir. Controller içinde gerekli kodlar yazılmıştır. Login, register ve lost password işlemleri jquery ajax işlemleri ile yapılmaktadır.
+
 
 
 ## Nasıl Kullanılır? 
@@ -26,9 +28,11 @@ Modal Login, **partial view(ModalLoginPartial.cshtml)** olarak projenizde istedi
 Modal Login, **Entity Framework CodeFirst ile çalışmaktadır ve veritabanı ile tablo otomatik oluşmaktadır.** İlgili Nuget paketini projenize eklendikten sonra şu adımları izleyerek gerekli ayarları arayüz ile yapabilirsiniz. **Nuget paketi projenize; Bootstrap, JQuery, Entity Framework 'ü ekleyecektir.**
 
 
+
 ## Nuget Package Manager ile Projeye Ekleme 
 
 > Install-Package KMBModalLogin
+
 
 Nuget paketi yüklendikten sonra Controllers klasörüne **"ModalLoginController"** eklenir. Gerekli action 'lar bu controller'da bulunmaktadır. Gerekli class'lar **proje altında "ModalLoginPlugin"** klasörün de bulunmaktadır. Ayrıca View'larda **Views klasörü altında "ModalLogin"** isimli klasör de bulunmaktadır. **Partial View'lar "Shared" klasöründe bulunmaktadır.**
 
@@ -43,6 +47,7 @@ Modal Login view'larında **"ModalLoginLayout.cshtml"** kullanılmaktadır. Bura
 Modal Login 'in kullandığı javascript dosyası **Script klasörü altında modal-login.js** ismiyle bulunmaktadır. CSS kodları için **Content klasörü altında modal-login.css** dosyasından gerekli değişiklikleri yapabilirsiniz.
 
 
+
 ## Ekran Görüntüleri
 
 Kullanıcı kayıt ve şifremi unuttum pencerelerinin ekran görüntüleri aşağıdaki şekildedir.
@@ -50,6 +55,7 @@ Kullanıcı kayıt ve şifremi unuttum pencerelerinin ekran görüntüleri aşa�
 ![KMB Modal Login - Register(kayıt) Sayfası](https://raw.githubusercontent.com/kadirmuratbaseren/Using-KMB-Modal-Login/master/ReadmeFiles/05-kmb-modal-login-register.png)
 
 ![KMB Modal Login - Lost Password(Şifremi Unuttum) Sayfası](https://raw.githubusercontent.com/kadirmuratbaseren/Using-KMB-Modal-Login/master/ReadmeFiles/06-kmb-modal-login-lost-password.png)
+
 
 
 ## Video Anlatım
