@@ -8,7 +8,7 @@
     <owners>Kadir Murat Başeren</owners>
     <projectUrl>https://github.com/kadirmuratbaseren/Using-KMB-Modal-Login</projectUrl>
     <iconUrl>https://goo.gl/A4R5FV</iconUrl>
-    <description>This package includes only modal login form, lost password form, register form and profile editing, deleting forms with bootstrap and JQuery for ASP.NET MVC Projects.</description>
+    <description>This package includes only modal login form, lost password form, register form and profile editing, deleting forms with bootstrap and JQuery for ASP.NET MVC Projects</description>
     <summary>This package provides login, remember password(with send a mail - remember pass or reset pass), register, profile viewing, profile editing and deleting. Using EF CodeFirst that create mssql database automatically.</summary>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>modal login form lost password register bootstrap jquery</tags>
