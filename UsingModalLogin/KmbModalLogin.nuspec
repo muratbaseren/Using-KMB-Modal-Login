@@ -14,24 +14,26 @@
     <tags>modal login form lost password register bootstrap jquery</tags>
     <copyright>Copyright 2017 Kadir Murat Başeren</copyright>
     <dependencies>
-      <dependency id="EntityFramework" version="6.1.3" />
-      <dependency id="jQuery" version="2.2.4" />
-      <dependency id="bootstrap" version="3.3.0" />
-      <dependency id="JQuery.Validation" version="1.8.0.1" />
-      <dependency id="Microsoft.JQuery.Unobtrusive.Validation" version="3.2.3" />
+      <group targetFramework=".NETFramework4.5.2">
+        <dependency id="EntityFramework" version="6.1.3" />
+        <dependency id="jQuery" version="2.2.4" />
+        <dependency id="bootstrap" version="3.3.0" />
+        <dependency id="JQuery.Validation" version="1.8.0.1" />
+        <dependency id="Microsoft.JQuery.Unobtrusive.Validation" version="3.2.3" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="Content\modal-login.css" target="content\Content\modal-login.css" />
-    <file src="Context\*.*" target="content\Context" />
-    <file src="Controllers\*.*" target="content\Controllers" />
-    <file src="images\*.*" target="content\images" />
-    <file src="Infrastructure\**\*.*" target="content\Infrastructure" />
-    <file src="ModalLoginPlugin\**\*.*" target="content\ModalLoginPlugin" />
-    <file src="Scripts\modal-login.js" target="content\Scripts\modal-login.js" />
-    <file src="Views\**\*.*" target="content\Views" exclude="Views\web.config" />
-    <file src="web.config.install.xdt" target="content\web.config.install.xdt" />
-    <file src="web.config.uninstall.xdt" target="content\web.config.uninstall.xdt" />
+    <file src="Content\modal-login.css" target="content\net452\Content\modal-login.css" />
+    <file src="Context\*.*" target="content\net452\Context" />
+    <file src="Controllers\*.*" target="content\net452\Controllers" />
+    <file src="images\*.*" target="content\net452\images" />
+    <file src="Infrastructure\**\*.*" target="content\net452\Infrastructure" />
+    <file src="ModalLoginPlugin\**\*.*" target="content\net452\ModalLoginPlugin" />
+    <file src="Scripts\modal-login.js" target="content\net452\Scripts\modal-login.js" />
+    <file src="Views\**\*.*" target="content\net452\Views" exclude="Views\web.config" />
+    <file src="web.config.install.xdt" target="content\net452\web.config.install.xdt" />
+    <file src="web.config.uninstall.xdt" target="content\net452\web.config.uninstall.xdt" />
   </files>
 </package>
 
