@@ -353,7 +353,7 @@ namespace UsingModalLogin.Controllers
             }
             else
             {
-                ModelState.AddModelError(nameof(model.PasswordRepeat), "Þifre ile Þifre tekrar uyuþmuyor.");
+                ModelState.AddModelError(nameof(model.PasswordRepeat), "ï¿½ifre ile ï¿½ifre tekrar uyuï¿½muyor.");
                 return View(model);
             }
 

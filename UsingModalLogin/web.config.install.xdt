@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <connectionStrings xdt:Transform="InsertIfMissing">
+    <add name="DatabaseContext" connectionString="Server=[ServerName];Database=[DatabaseName];Trusted_Connection=true;" providerName="System.Data.SqlClient" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+  </connectionStrings>
+</configuration>

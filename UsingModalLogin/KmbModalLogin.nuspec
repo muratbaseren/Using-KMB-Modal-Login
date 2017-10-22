@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>KMBModalLogin</id>
+    <version>$version$</version>
+    <authors>Kadir Murat Başeren</authors>
+    <title>Modal Login</title>
+    <owners>Kadir Murat Başeren</owners>
+    <projectUrl>https://github.com/kadirmuratbaseren/Using-KMB-Modal-Login</projectUrl>
+    <iconUrl>https://goo.gl/A4R5FV</iconUrl>
+    <description>This package includes only modal login form, lost password form, register form and profile editing, deleting forms with bootstrap and JQuery for ASP.NET MVC Projects..</description>
+    <summary>This package provides login, remember password(with send a mail - remember pass or reset pass), register, profile viewing, profile editing and deleting. Using EF CodeFirst that create mssql database automatically.</summary>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>modal login form lost password register bootstrap jquery</tags>
+    <copyright>Copyright 2017 Kadir Murat Başeren</copyright>
+    <dependencies>
+      <dependency id="EntityFramework" version="6.1.3" />
+      <dependency id="jQuery" version="2.2.4" />
+      <dependency id="bootstrap" version="3.3.0" />
+      <dependency id="JQuery.Validation" version="1.8.0.1" />
+      <dependency id="Microsoft.JQuery.Unobtrusive.Validation" version="3.2.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Content\modal-login.css" target="content\Content\modal-login.css" />
+    <file src="Context\*.*" target="content\Context" />
+    <file src="Controllers\*.*" target="content\Controllers" />
+    <file src="images\*.*" target="content\images" />
+    <file src="Infrastructure\**\*.*" target="content\Infrastructure" />
+    <file src="ModalLoginPlugin\**\*.*" target="content\ModalLoginPlugin" />
+    <file src="Scripts\modal-login.js" target="content\Scripts\modal-login.js" />
+    <file src="Views\**\*.*" target="content\Views" exclude="Views\web.config" />
+    <file src="web.config.install.xdt" target="content\web.config.install.xdt" />
+    <file src="web.config.uninstall.xdt" target="content\web.config.uninstall.xdt" />
+  </files>
+</package>
+
