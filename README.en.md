@@ -1,6 +1,10 @@
 # Using-KMB-Modal-Login
 Using KMBModalLogin popup in ASP.NET MVC Projects. 
 
+| Build server| Platform       | Status      |
+|-------------|----------------|-------------|
+| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/9cqwlv6cx24u14la/branch/master?svg=true)](https://ci.appveyor.com/project/muratbaseren/using-kmb-modal-login/branch/master) |
+
 You can use Visual Studio and download modal login automatically. For download, you can use nuget package manager. Enter KMBModalLogin to search box and just download it. 
 
 > **PM > Install-Package [KMBModalLogin](https://www.nuget.org/packages/KMBModalLogin/)**
