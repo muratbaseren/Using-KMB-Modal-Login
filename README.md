@@ -1,6 +1,10 @@
 # KMB Modal Login Kullanımı
 **(for english read readme.en.md file in repository)**
 
+| Build server| Platform       | Status      |
+|-------------|----------------|-------------|
+| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/9cqwlv6cx24u14la/branch/master?svg=true)](https://ci.appveyor.com/project/muratbaseren/using-kmb-modal-login/branch/master) |
+
 ![KMB Modal Login - Login Page](https://github.com/kadirmuratbaseren/Using-KMB-Modal-Login/blob/master/ReadmeFiles/04-kmb-modal-login-login-page.png?raw=true)
 
 
