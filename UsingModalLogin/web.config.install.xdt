@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appSettings>
+      <add key="_MailHost" value="smtp.gmail.com"  xdt:Locator="Match(key)" xdt:Transform="InsertIfMissing" />
+      <add key="_MailPort" value="587"  xdt:Locator="Match(key)" xdt:Transform="InsertIfMissing" />
+      <add key="_MailUid" value="eposta@gmail.com"  xdt:Locator="Match(key)" xdt:Transform="InsertIfMissing" />
+      <add key="_MailPass" value="sifre"  xdt:Locator="Match(key)" xdt:Transform="InsertIfMissing" />
+  </appSettings>
   <connectionStrings xdt:Transform="InsertIfMissing">
-    <add name="DatabaseContext" connectionString="Server=[ServerName];Database=[DatabaseName];Trusted_Connection=true;" providerName="System.Data.SqlClient" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+      <add name="DatabaseContext" connectionString="Server=(localdb)\mssqllocaldb;Database=sampleappdb;Trusted_Connection=true;" providerName="System.Data.SqlClient" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
   </connectionStrings>
 </configuration>
