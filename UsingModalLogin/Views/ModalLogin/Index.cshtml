@@ -1,4 +1,4 @@
-﻿
+﻿@using UsingModalLogin.Controllers
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ModalLoginLayout.cshtml";
@@ -46,10 +46,10 @@
 
         <h3><b>Set ConnectionString in Web.Config</b></h3>
         <p>
-            You can use below form and setting connectionstring in web.config automatically.
+            You can use below form and save connectionstring in web.config.
             <br /><br />
         </p>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("EditConnectionString","ModalLogin"))
             {
             <div class="form-horizontal">
 
@@ -72,31 +72,120 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Server Name</label>
                     <div class="col-md-9">
-                        <div class="col-md-6"><input type="text" name="servername" id="servername" class="form-control" placeholder="server name" required /></div>
+                        <div class="col-md-6">
+                            @Html.TextBox("servername", (string)ViewBag.ServerName,
+                                new { @class = "form-control", placeholder = "server name", required = "required" })
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Database Name</label>
                     <div class="col-md-9">
-                        <div class="col-md-6"><input type="text" name="databasename" id="databasename" class="form-control" placeholder="database name" required /></div>
+                        <div class="col-md-6">
+                            @Html.TextBox("databasename", (string)ViewBag.DatabaseName,
+                                new { @class = "form-control", placeholder = "database name", required = "required" })
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Is Windows Authentication</label>
                     <div class="col-md-9">
-                        <div class="col-md-6"><input type="checkbox" name="iswinauthentication" id="iswinauthentication" /></div>
+                        <div class="col-md-6">
+                            @Html.CheckBox("iswinauthentication", (bool)ViewBag.IsWinAuthentication)
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">User Id</label>
                     <div class="col-md-9">
-                        <div class="col-md-6"><input type="text" name="userid" id="userid" class="form-control" placeholder="user id" /></div>
+                        <div class="col-md-6">
+                            @Html.TextBox("userid", (string)ViewBag.UserId,
+                                new { @class = "form-control", placeholder = "user id" })
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Password</label>
                     <div class="col-md-9">
-                        <div class="col-md-6"><input type="password" name="password" id="password" class="form-control" placeholder="password" /></div>
+                        <div class="col-md-6">
+                            @Html.Password("password", (string)ViewBag.Password,
+                                new { @class = "form-control", placeholder = "password" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-push-3">
+                        <div class="col-md-6">
+                            <input type="submit" value="Update" class="btn btn-success" />
+                            <br /><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <br /><br />
+        <hr />
+
+        <h3><b>Set AppSettings in Web.Config</b></h3>
+        <p>
+            You can use below form and save mail settings in web.config.
+            <br /><br />
+        </p>
+        @using (Html.BeginForm("EditMailSettings","ModalLogin"))
+            {
+            <div class="form-horizontal">
+
+                @if (ViewBag.MailResult != null && string.IsNullOrEmpty(ViewBag.MailResult) == false)
+                {
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div id="message" class="alert alert-@ViewBag.MailResultStyle">
+                                <table>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-info-sign" style="font-size:larger;"></span></td>
+                                        <td><div style="padding-left:20px;">@Html.Raw(ViewBag.MailResult)</div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mail Host</label>
+                    <div class="col-md-9">
+                        <div class="col-md-6">
+                            @Html.TextBox("mailhost", (string)ViewBag.MailHost,
+                                new { @class = "form-control", placeholder = "mail host", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mail Port</label>
+                    <div class="col-md-9">
+                        <div class="col-md-6">
+                            @Html.TextBox("mailport", (string)ViewBag.MailPort,
+                                new { @class = "form-control", type="number", placeholder = "port", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mail Username</label>
+                    <div class="col-md-9">
+                        <div class="col-md-6">
+                            @Html.TextBox("mailuid", (string)ViewBag.MailUid,
+                                new { @class = "form-control", placeholder = "mail username" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mail Password</label>
+                    <div class="col-md-9">
+                        <div class="col-md-6">
+                            @Html.Password("mailpass", (string)ViewBag.MailPass,
+                                new { @class = "form-control", placeholder = "mail password" })
+                        </div>
                     </div>
                 </div>
 
@@ -144,7 +233,7 @@
             <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>add</span> 
             <span style='color:#274796; '>name</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>SampleDatabaseContext</span><span style='color:#800000; '>"</span> 
             <span style='color:#274796; '>providerName</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>System.Data.SqlClient</span><span style='color:#800000; '>"</span> 
-            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=[Server Name];Database=ModalLoginTestDB1;Integrated Security=true;</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
+            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=@ViewBag.ServerName;Database=@ViewBag.DatabaseName;Trusted_Connection=true;</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
   
 <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
 </pre>
@@ -156,7 +245,7 @@
             <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>add</span> 
             <span style='color:#274796; '>name</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>SampleDatabaseContext</span><span style='color:#800000; '>"</span> 
             <span style='color:#274796; '>providerName</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>System.Data.SqlClient</span><span style='color:#800000; '>"</span> 
-            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=[Server Name];Database=ModalLoginTestDB1;User Id=[username];Password=[pass]</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
+            <span style='color:#274796; '>connectionString</span><span style='color:#808030; '>=</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Server=@ViewBag.ServerName;Database=@ViewBag.DatabaseName;User Id=@(((string)ViewBag.UserId).ChangeEmptyString("[UserId]"));Password=@(((string)ViewBag.Password).ChangeEmptyString("[Password]"))</span><span style='color:#800000; '>"</span> <span style='color:#a65700; '>/></span>
   
 <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>connectionStrings</span><span style='color:#a65700; '>></span>
 </pre>

@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+	<appSettings>
+		<add key="_MailHost" xdt:Transform="Remove" xdt:Locator="Match(key)" />
+		<add key="_MailPort" xdt:Transform="Remove" xdt:Locator="Match(key)" />
+		<add key="_MailUid" xdt:Transform="Remove" xdt:Locator="Match(key)" />
+		<add key="_MailPass" xdt:Transform="Remove" xdt:Locator="Match(key)" />
+	</appSettings>
 	<connectionStrings>
     	<add name="DatabaseContext" xdt:Transform="Remove" xdt:Locator="Match(name)" />
   	</connectionStrings>

@@ -16,14 +16,73 @@ namespace UsingModalLogin.Controllers
 {
     public class ModalLoginController : Controller, ILoginController<LoginUser, ResetPasswordViewModel>
     {
-        // TODO : EF DatabaseContext Sample
+        // TODO : ModalLoginContext Sample
         private SampleDatabaseContext db = new SampleDatabaseContext();
         private MailHelper mailer = new MailHelper();
 
-        // TODO : Sample Index Page - You can remove this.
         public ActionResult Index()
         {
+            string connectionString = ReadConnectionString();
+            GenerateDatabaseNameIfNeeded(connectionString);
+
+            SetViewBags();
+
             return View();
+        }
+
+
+        private string ReadConnectionString()
+        {
+            Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
+            return conf.ConnectionStrings.ConnectionStrings["SampleDatabaseContext"].ConnectionString;
+        }
+        private bool GenerateDatabaseNameIfNeeded(string connectionString)
+        {
+            if (connectionString.Contains("[willgenerate]"))
+            {
+                string dbName = "sampleappdb-" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                connectionString = connectionString.Replace("[willgenerate]", dbName);
+
+                SaveConnectionString(connectionString);
+                return true;
+            }
+
+            return false;
+        }
+        private void SetViewBagsForConnectionString(string connectionString)
+        {
+            string[] connStrParts = connectionString.Split(';');
+
+            string serverName = "", databaseName = "", userId = "", password = "";
+            bool isWinAuth = false;
+
+            foreach (string part in connStrParts)
+            {
+                if (part.ToLower().Contains("server=")) serverName = part.Split('=')[1];
+                if (part.ToLower().Contains("database=")) databaseName = part.Split('=')[1];
+                if (part.ToLower().Contains("trusted_connection=")) isWinAuth = bool.Parse(part.Split('=')[1]);
+                if (part.ToLower().Contains("user ıd=")) userId = part.Split('=')[1];
+                if (part.ToLower().Contains("password=")) password = part.Split('=')[1];
+            }
+
+            ViewBag.ServerName = serverName;
+            ViewBag.DatabaseName = databaseName;
+            ViewBag.IsWinAuthentication = isWinAuth;
+            ViewBag.UserId = userId;
+            ViewBag.Password = password;
+        }
+        private void SetViewBagsForMailSettingsFromAppSettings()
+        {
+            Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
+            ViewBag.MailHost = conf.AppSettings.Settings["_MailHost"].Value;
+            ViewBag.MailPort = conf.AppSettings.Settings["_MailPort"].Value;
+            ViewBag.MailUid = conf.AppSettings.Settings["_MailUid"].Value;
+            ViewBag.MailPass = conf.AppSettings.Settings["_MailPass"].Value;
+        }
+        private void SetViewBags()
+        {
+            SetViewBagsForConnectionString(ReadConnectionString());
+            SetViewBagsForMailSettingsFromAppSettings();
         }
 
         [HttpPost]
@@ -363,8 +422,22 @@ namespace UsingModalLogin.Controllers
 
 
 #if DEBUG
+        // DEBUG mod dışında buradaki metotlar kod içinde yer almaz.
+        // Yani derlendiğinde Release mod'da bu kod bulunmaz.
+        // Web siteleri yayınlanırken Release mod'da yayınlanır.
+        // Web.config save etme işlemi yapan bir kod olduğundan bu şekilde
+        // güvenlik önlemi alınmıştır. Böylece bu controller unutulsa bile metotlar
+        // sitenin yayınlandığı yerde yer almayacaktır.
+
+        private void SaveConnectionString(string connStr)
+        {
+            Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
+            conf.ConnectionStrings.ConnectionStrings["SampleDatabaseContext"].ConnectionString = connStr;
+            conf.Save();
+        }
+
         [HttpPost]
-        public ActionResult Index(string servername, string databasename, string userid, string password, string iswinauthentication)
+        public ActionResult EditConnectionString(string servername, string databasename, string userid, string password, bool iswinauthentication)
         {
             if (string.IsNullOrEmpty(servername) || string.IsNullOrEmpty(databasename) ||
                 string.IsNullOrWhiteSpace(servername) || string.IsNullOrWhiteSpace(databasename))
@@ -375,22 +448,16 @@ namespace UsingModalLogin.Controllers
                 return View();
             }
 
-            string connStr = "Server=" + servername + ";Database=" + databasename + "; ";
+            string connectionString = "Server=" + servername + ";Database=" + databasename + ";";
 
-            if (iswinauthentication != null && iswinauthentication == "on")
-            {
-                connStr += "Integrated Security=true;";
-            }
+            if (iswinauthentication)
+                connectionString += "Trusted_Connection=true;";
             else
-            {
-                connStr += "User Id=" + userid + ";Password=" + password + ";";
-            }
+                connectionString += "User Id=" + userid + ";Password=" + password + ";";
 
             try
             {
-                Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
-                conf.ConnectionStrings.ConnectionStrings["SampleDatabaseContext"].ConnectionString = connStr;
-                conf.Save();
+                SaveConnectionString(connectionString);
 
                 ViewBag.ResultStyle = "success";
                 ViewBag.Result = "ConnectionString(KmbContext) saved to web.config with successfully..<br><b>First request can be a few slowly. Becase CodeFirst create database in your SQL Server. After Log-in you :) if you can write correct username and pass.(sample username is below)</b>";
@@ -401,9 +468,52 @@ namespace UsingModalLogin.Controllers
                 ViewBag.Result = "Error : <b>" + ex.Message + "</b>";
             }
 
-            return View();
+            SetViewBags();
+
+            return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult EditMailSettings(string mailhost, int mailport, string mailuid, string mailpass)
+        {
+            try
+            {
+                SaveMailSettingsToAppSetting(mailhost, mailport, mailuid, mailpass);
+
+                ViewBag.MailResultStyle = "success";
+                ViewBag.MailResult = "Mail Settings saved to web.config with successfully..</b>";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MailResultStyle = "danger";
+                ViewBag.MailResult = "Error : <b>" + ex.Message + "</b>";
+            }
+
+            SetViewBags();
+            return View("Index");
+        }
+
+        private void SaveMailSettingsToAppSetting(string mailhost, int mailport, string username, string password)
+        {
+            Configuration conf = WebConfigurationManager.OpenWebConfiguration("~");
+            conf.AppSettings.Settings["_MailHost"].Value = mailhost;
+            conf.AppSettings.Settings["_MailPort"].Value = mailport.ToString();
+            conf.AppSettings.Settings["_MailUid"].Value = username;
+            conf.AppSettings.Settings["_MailPass"].Value = password;
+            conf.Save();
         }
 #endif
 
+    }
+
+    public static class StringExtensions
+    {
+        public static string ChangeEmptyString(this string s, string str)
+        {
+            if (string.IsNullOrEmpty(s))
+                return str;
+            else
+                return s;
+        }
     }
 }
