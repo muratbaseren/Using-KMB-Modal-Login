@@ -7,6 +7,6 @@
 		<add key="_MailPass" xdt:Transform="Remove" xdt:Locator="Match(key)" />
 	</appSettings>
 	<connectionStrings>
-    	<add name="DatabaseContext" xdt:Transform="Remove" xdt:Locator="Match(name)" />
+    	<add name="SampleDatabaseContext" xdt:Transform="Remove" xdt:Locator="Match(name)" />
   	</connectionStrings>
 </configuration>

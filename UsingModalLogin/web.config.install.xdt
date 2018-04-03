@@ -7,6 +7,6 @@
       <add key="_MailPass" value="sifre"  xdt:Locator="Match(key)" xdt:Transform="InsertIfMissing" />
   </appSettings>
   <connectionStrings xdt:Transform="InsertIfMissing">
-      <add name="DatabaseContext" connectionString="Server=(localdb)\mssqllocaldb;Database=[willgenerate];Trusted_Connection=true;" providerName="System.Data.SqlClient" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+      <add name="SampleDatabaseContext" connectionString="Server=(localdb)\mssqllocaldb;Database=[willgenerate];Trusted_Connection=true;" providerName="System.Data.SqlClient" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
   </connectionStrings>
 </configuration>
